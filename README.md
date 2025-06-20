@@ -9,7 +9,7 @@ Este repositorio contiene una implementación en Java de listas enlazadas, desar
 
 El proyecto tiene como objetivo principal la creación y manipulación de listas enlazadas simples, permitiendo operaciones como inserción, eliminación, búsqueda y recorrido de elementos. Estas estructuras son fundamentales para comprender la gestión dinámica de memoria y la eficiencia en la manipulación de datos.
 
-![Imagen Terminal](./src/Img/Img%20Terminal.png)
+![image](https://github.com/user-attachments/assets/7ce15f83-e1b4-44c3-9b58-a172c646c56d)
 
 ## 🛠️ Estructura del Proyecto
 - `src/`: Contiene los archivos fuente en Java.

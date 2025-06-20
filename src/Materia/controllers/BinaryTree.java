@@ -4,6 +4,8 @@ import Materia.controllers.Models.Node;
 
 public class BinaryTree {
     private Node root;
+    private int size = 0;
+    private int alturaDelArbol = 0;
 
     public BinaryTree() {
         this.root = null;
@@ -15,75 +17,175 @@ public class BinaryTree {
 
     private Node insertRec(Node current, int value) {
         if (current == null) {
+            size++;
             return new Node(value);
         }
-        
-        if (value <= current.getValue()) {
-            // Go to the left
+
+        if (value < current.getValue()) {
             current.setLeft(insertRec(current.getLeft(), value));
         } else if (value > current.getValue()) {
-            // Go to the right
             current.setRight(insertRec(current.getRight(), value));
         }
-        
+
         return current;
     }
 
-    public void imprimirArbol() {
-        printpreorder();
+    // =================== Altura ====================
+    public int getHeight(Node node) {
+        if (node == null) return 0;
+        int left = getHeight(node.getLeft());
+        int right = getHeight(node.getRight());
+        return 1 + Math.max(left, right);
     }
 
-    public void printpreorder() {
-        printpreorder(root);
+    public void calcularAltura() {
+        this.alturaDelArbol = getHeight(root); // Esto ahora será correcto
     }
 
-    private void printpreorder(Node node) {
+
+    public void imprimirAltura() {
+        System.out.println("Altura del árbol: " + alturaDelArbol);
+    }
+
+    // =================== Balance ====================
+    public int getBalanceFactor(Node node) {
+        if (node == null){
+            return 0;
+        }
+        return getHeight(node.getLeft()) - getHeight(node.getRight());
+    }
+
+    public void imprimirFactoresEquilibrio() {
+        System.out.println("Factores de equilibrio (InOrder):");
+        printInOrderBalance(root);
+        System.out.println();
+    }
+
+    public void printInOrderBalance(Node node) {
+        if (node != null) {
+            printInOrderBalance(node.getLeft());
+            System.out.print(node.getValue() + "(bf=" + getBalanceFactor(node) + "), ");
+            printInOrderBalance(node.getRight());
+        }
+    }
+
+
+    // =================== Recorridos ====================
+    public void printPreOrder() {
+        System.out.println("PreOrder:");
+        preOrderRec(root);
+        System.out.println();
+    }
+
+    private void preOrderRec(Node node) {
         if (node != null) {
             System.out.print(node.getValue() + ", ");
-            printpreorder(node.getLeft());
-            printpreorder(node.getRight());
+            preOrderRec(node.getLeft());
+            preOrderRec(node.getRight());
         }
     }
 
     public void printInOrder() {
-        printInOrder(root);
+        System.out.println("InOrder:");
+        inOrderRec(root);
+        System.out.println();
     }
 
-    private void printInOrder(Node node) {
+    private void inOrderRec(Node node) {
         if (node != null) {
-            printInOrder(node.getLeft());
+            inOrderRec(node.getLeft());
             System.out.print(node.getValue() + ", ");
-            printInOrder(node.getRight());
+            inOrderRec(node.getRight());
         }
     }
 
     public void printPostOrder() {
-        printInOrder(root);
+        System.out.println("PostOrder:");
+        postOrderRec(root);
+        System.out.println();
     }
 
-    private void printPostOrder(Node node) {
+    private void postOrderRec(Node node) {
         if (node != null) {
-            printInOrder(node.getLeft());
-            printInOrder(node.getRight());            
+            postOrderRec(node.getLeft());
+            postOrderRec(node.getRight());
             System.out.print(node.getValue() + ", ");
         }
     }
 
-        public boolean findValue(int value) {
+    // =================== Altura por nodo ====================
+    public void printWithHeights() {
+        System.out.println("Alturas por nodo (InOrder):");
+        printInOrderHeights(root);
+        System.out.println();
+    }
+
+    public void printInOrderHeights(Node node) {
+        if (node != null) {
+            printInOrderHeights(node.getLeft());
+            System.out.print(node.getValue() + "(h=" + getHeight(node) + "), ");
+            printInOrderHeights(node.getRight());
+        }
+    }
+
+    public Node getRoot() {
+        return root;
+    }
+
+
+    // =================== Equilibrado ====================
+    public boolean estaEquilibrado() {
+        return estaEquilibradoRec(root);
+    }
+
+    private boolean estaEquilibradoRec(Node node) {
+        if (node == null) return true;
+
+        int balance = getBalanceFactor(node);
+        if (Math.abs(balance) > 1) return false;
+
+        return estaEquilibradoRec(node.getLeft()) && estaEquilibradoRec(node.getRight());
+    }
+
+    public void imprimirNodosDesequilibrados() {
+        System.out.print("Nodos desequilibrados: ");
+        imprimirNodosDesequilibradosRec(root);
+        System.out.println();
+    }
+
+    private void imprimirNodosDesequilibradosRec(Node node) {
+        if (node != null) {
+            imprimirNodosDesequilibradosRec(node.getLeft());
+
+            int bf = getBalanceFactor(node);
+            if (Math.abs(bf) > 1) {
+                System.out.print(node.getValue() + "(fE = " + bf + ") ");
+            }
+
+            imprimirNodosDesequilibradosRec(node.getRight());
+        }
+    }
+
+
+    // =================== Búsqueda ====================
+    public boolean findValue(int value) {
         return findValueRec(root, value);
     }
 
-    private boolean findValueRec(Node current, int value) {
-        if (current == null) {
-            return false;
-        }
-        
-        if (value == current.getValue()) {
-            return true;
-        }
-        
-        return value < current.getValue() 
-            ? findValueRec(current.getLeft(), value)
-            : findValueRec(current.getRight(), value);
+    private boolean findValueRec(Node node, int value) {
+        if (node == null) return false;
+        if (node.getValue() == value) return true;
+        return value < node.getValue()
+            ? findValueRec(node.getLeft(), value)
+            : findValueRec(node.getRight(), value);
+    }
+
+    // =================== Tamaño ====================
+    public int getSize() {
+        return size;
+    }
+
+    public void printSize() {
+        System.out.println("Peso del árbol (cantidad de nodos): " + size);
     }
 }

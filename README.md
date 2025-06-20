@@ -26,7 +26,7 @@ El proyecto tiene como objetivo principal la creación y manipulación de listas
 Clona este repositorio en tu máquina local:
 
 ```bash
-git clone https://github.com/DanielAntonio8a/icc-est-u2-ListasEnlazadas-Duran-Rodas.git
+git clone https://github.com/DanielAntonio8a/icc-est-u2-estructurasNolineales.git
 ```
 
 ## 🧾 Conclusión

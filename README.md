@@ -32,3 +32,8 @@ git clone https://github.com/DanielAntonio8a/icc-est-u2-estructurasNolineales.gi
 ## 🧾 Conclusión
 
 Este proyecto permitió comprender y aplicar conceptos clave de listas enlazadas en Java, como la creación de nodos y la manipulación dinámica de memoria. Se reforzaron habilidades en programación orientada a objetos y se evidenció la utilidad de esta estructura para operaciones eficientes de inserción y eliminación. En general, fue una experiencia formativa para el desarrollo de soluciones estructuradas y escalables.
+
+
+
+
+![alt text](image.png)

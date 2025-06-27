@@ -1,3 +1,4 @@
+import Materia.AVLTree;
 import Materia.controllers.BinaryTree;
 
 public class App {
@@ -50,5 +51,12 @@ public class App {
 
         // Mostrar nodos desequilibrados
         ab.imprimirNodosDesequilibrados();
+
+        System.out.println("\n\n\n\n");
+        AVLTree avlTree = new AVLTree();
+            avlTree.insert(5);  
+            avlTree.insert(20);  
+            avlTree.insert(15);
+    
     }
 }
